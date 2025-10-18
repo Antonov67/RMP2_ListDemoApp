@@ -1,0 +1,70 @@
+package com.example.rmp2_listdemoapp;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText textField;
+    ListView listView;
+    Button button;
+    ArrayAdapter<String> adapter;
+    ArrayList<String> dataList;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+
+        textField = findViewById(R.id.textField);
+        listView = findViewById(R.id.listView);
+        button = findViewById(R.id.button);
+
+        initData();
+
+        adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_1,
+                dataList
+        );
+
+        listView.setAdapter(adapter);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addItemToList();
+            }
+        });
+    }
+
+    public void addItemToList(){
+        String text = textField.getText().toString().trim();
+        if (!text.isEmpty()){
+            dataList.add(text);
+            adapter.notifyDataSetChanged();
+            textField.setText("");
+            listView.smoothScrollToPosition(dataList.size() - 1);
+        } else {
+            Toast.makeText(this, "Введите текст!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void initData(){
+        dataList = new ArrayList<>();
+        dataList.add("Java");
+        dataList.add("Python");
+        dataList.add("C#");
+    }
+}
