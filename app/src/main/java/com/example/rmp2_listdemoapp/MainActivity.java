@@ -2,6 +2,7 @@ package com.example.rmp2_listdemoapp;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,6 +48,17 @@ public class MainActivity extends AppCompatActivity {
                 addItemToList();
             }
         });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                dataList.remove(i);
+                adapter.notifyDataSetChanged();
+                Toast.makeText(MainActivity.this, "Удалено!", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+
     }
 
     public void addItemToList(){
