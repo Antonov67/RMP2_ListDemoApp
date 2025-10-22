@@ -13,14 +13,15 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText textField;
     ListView listView;
     Button button;
-    ArrayAdapter<String> adapter;
-    ArrayList<String> dataList;
+    CustomAdapter adapter;
+    List<String> dataList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
         initData();
 
-        adapter = new ArrayAdapter<>(
+        adapter = new CustomAdapter(
                 this,
-                android.R.layout.simple_list_item_1,
                 dataList
         );
 
